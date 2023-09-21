@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     float moveSpeed = 2.0f;
     public float moveForce = 1f;
     Vector3 originalScale;
+    //real
 
     void Start()
     {
