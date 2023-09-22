@@ -65,6 +65,7 @@ public class PlayerPointHandler : MonoBehaviour
         }
         if (collision.gameObject.tag == "Pirate")
         {
+            Debug.Log(" EHERHEHREHREHHER::::::       " + pirateBool);
             StartCoroutine(SetPirateTimeOut());
         }
         

@@ -20,13 +20,14 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         originalScale = transform.localScale;
         handler = GetComponent<PlayerPointHandler>();
-        pirateCooldown = handler.pirateBool;
     }
 
     void Update()
     {
+        pirateCooldown = handler.pirateBool;
         if (pirateCooldown == false) 
         {
+            Debug.Log(" Live:       " + pirateCooldown);
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 upPressed = true;
