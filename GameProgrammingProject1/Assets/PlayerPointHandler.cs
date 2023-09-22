@@ -19,27 +19,23 @@ public class PlayerPointHandler : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
+        //GOAL TOKENS
         if (collision.gameObject.tag == "Pendant")
         {
             kpCounter = kpCounter + 25;
-            Debug.Log("YES");
-            Debug.Log("Knowledge: " + kpCounter);
         }
-        
         if (collision.gameObject.tag == "CookBook")
         {
             kpCounter++;
-            Debug.Log("YES");
-            Debug.Log("Knowledge: " + kpCounter);
         }
-        
         if (collision.gameObject.tag == "BrowniePoint")
         {
             bpCounter++;
-            Debug.Log("YES");
-            Debug.Log("Brownie Points: " + bpCounter);
         }
         
+        
+        //Porfessors/PowerUps
         if (collision.gameObject.tag == "American")
         {
             bpCounter = 0;
@@ -54,6 +50,8 @@ public class PlayerPointHandler : MonoBehaviour
             
         }
         
+        
+        //ENIMIES
         if (collision.gameObject.tag == "Pointer")
         {
             if ((kpCounter / 2) > 10)
@@ -70,12 +68,10 @@ public class PlayerPointHandler : MonoBehaviour
             Debug.Log(" EHERHEHREHREHHER::::::       " + pirateBool);
             StartCoroutine(SetPirateTimeOut());
         }
-        
         if (collision.gameObject.tag == "Swarm")
         {
             
         }
-        
     }
     
     
