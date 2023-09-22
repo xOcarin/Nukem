@@ -8,23 +8,25 @@ public class PlayerMovement : MonoBehaviour
     bool downPressed = false;
     bool leftPressed = false;
     bool rightPressed = false;
+    
+    
     Rigidbody2D rb;
     public float moveForce = 1f;
     Vector3 originalScale;
 
-    public PlayerPointHandler handler;
+    public PlayerPointHandler handler; //Other script as an obj
     private bool pirateCooldown = false;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        originalScale = transform.localScale;
-        handler = GetComponent<PlayerPointHandler>();
+        rb = GetComponent<Rigidbody2D>(); 
+        originalScale = transform.localScale; // store scale so it doesnt size up
+        handler = GetComponent<PlayerPointHandler>(); // init the component(the PlayerPointHandler Script)
     }
 
     void Update()
     {
-        pirateCooldown = handler.pirateBool;
+        pirateCooldown = handler.pirateBool; //assigning bool from PlayerPointHandler every frame.
         if (pirateCooldown == false) 
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
