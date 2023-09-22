@@ -12,6 +12,9 @@ TagManager:
   - CookBook
   - KpText
   - BpText
+  - Pointer
+  - Pirate
+  - Swarm
   layers:
   - Default
   - TransparentFX

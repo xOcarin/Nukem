@@ -11,51 +11,58 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     public float moveForce = 1f;
     Vector3 originalScale;
-    //real
+
+    public PlayerPointHandler handler;
+    private bool pirateCooldown = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         originalScale = transform.localScale;
+        handler = GetComponent<PlayerPointHandler>();
+        pirateCooldown = handler.pirateBool;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (pirateCooldown == false) 
         {
-            upPressed = true;
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            downPressed = true;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            leftPressed = true;
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            rightPressed = true;
-        }
-
-        // Detect when keys are released
-        if (Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            upPressed = false;
-        }
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            downPressed = false;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            leftPressed = false;
-            transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
-        }
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            rightPressed = false;
-            transform.localScale = originalScale;
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                upPressed = true;
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                downPressed = true;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                leftPressed = true;
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                rightPressed = true;
+            } 
+            
+            // Detect when keys are released
+            if (Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                upPressed = false;
+            }
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                downPressed = false;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftArrow))
+            {
+                leftPressed = false;
+                transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
+            }
+            if (Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                rightPressed = false;
+                transform.localScale = originalScale;
+            }
         }
     }
 

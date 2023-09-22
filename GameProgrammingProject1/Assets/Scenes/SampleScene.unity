@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveForce: 20
+  handler: {fileID: 0}
 --- !u!212 &15292488
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -319,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kpCounter: 0
   bpCounter: 0
+  pirateBool: 0
   kpText: {fileID: 725779614}
   bpText: {fileID: 112641716}
 --- !u!1 &34552810
@@ -1091,7 +1093,7 @@ GameObject:
   - component: {fileID: 587104516}
   m_Layer: 0
   m_Name: Pirate
-  m_TagString: Untagged
+  m_TagString: Pirate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1654,7 +1656,7 @@ Transform:
   m_GameObject: {fileID: 911684329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.66, y: -4.03, z: 0}
+  m_LocalPosition: {x: -5.66, y: -4.03, z: -0.06}
   m_LocalScale: {x: 0.2354, y: 0.2354, z: 0.2354}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1774,7 +1776,7 @@ Transform:
   m_GameObject: {fileID: 1157158981}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.81, y: -4.06, z: 0}
+  m_LocalPosition: {x: -7.81, y: -4.06, z: -0.06}
   m_LocalScale: {x: 0.2354, y: 0.2354, z: 0.2354}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1793,7 +1795,7 @@ GameObject:
   - component: {fileID: 1174967660}
   m_Layer: 0
   m_Name: Swarm
-  m_TagString: Untagged
+  m_TagString: Swarm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2144,7 +2146,7 @@ Transform:
   m_GameObject: {fileID: 1305075495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.72, y: -4.06, z: 0}
+  m_LocalPosition: {x: -6.72, y: -4.06, z: -0.06}
   m_LocalScale: {x: 0.2354, y: 0.2354, z: 0.2354}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2163,7 +2165,7 @@ GameObject:
   - component: {fileID: 1757471870}
   m_Layer: 0
   m_Name: Pointer
-  m_TagString: Untagged
+  m_TagString: Pointer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
