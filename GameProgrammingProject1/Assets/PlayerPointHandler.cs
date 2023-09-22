@@ -26,7 +26,7 @@ public class PlayerPointHandler : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        //GOAL TOKENS
+        //GOAL TOKEN COLLISION
         if (collision.gameObject.tag == "Pendant")
         {
             kpCounter = kpCounter + 25;
@@ -41,23 +41,46 @@ public class PlayerPointHandler : MonoBehaviour
         }
         
         
-        //Porfessors/PowerUps
+        //PROFESSOR COLLISION
         if (collision.gameObject.tag == "American")
         {
-            bpCounter = 0;
-            kpCounter = kpCounter * 2;
+            if (bpCounter >= 10)
+            {
+                kpCounter = kpCounter * 2;
+                bpCounter = 0;
+            }
+            else
+            {
+                bpCounter = 0;
+            }
         }
-        if (collision.gameObject.tag == "British")
+        if (collision.gameObject.tag == "British" )
         {
-            //BritishInvasion(); PLACEHOLDER
+            if (bpCounter >= 10)
+            {
+                StartCoroutine(SetImmuneTimeOut());
+                bpCounter = 0;
+            }
+            else
+            {
+                bpCounter = 0;
+            }
         }
         if (collision.gameObject.tag == "German")
         {
-            //OleKnowldgeBomb(): PLACEHOLDER
+            if (bpCounter >= 10)
+            {
+                //OleKnowldgeBomb(): PLACEHOLDER
+                bpCounter = 0;
+            }
+            else
+            {
+                bpCounter = 0;
+            }
         }
         
         
-        //ENIMIES
+        //ENIMIE COLLISION
         if (collision.gameObject.tag == "Pointer" && britishImmunity == false)
         {
             if ((kpCounter / 2) > 10)
