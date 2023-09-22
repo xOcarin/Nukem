@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     bool leftPressed = false;
     bool rightPressed = false;
     Rigidbody2D rb;
-    float moveSpeed = 2.0f;
     public float moveForce = 1f;
     Vector3 originalScale;
     //real
@@ -77,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
         }
         if (rightPressed)
         {
-            Debug.Log("test");
             rb.AddForce(new Vector2(moveForce, 0f), ForceMode2D.Force);
         }
     }
