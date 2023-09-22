@@ -10,6 +10,8 @@ public class PlayerPointHandler : MonoBehaviour
     public double bpCounter = 0;
 
     public bool pirateBool = false;
+    public bool startSwarm = false;
+    public bool swarmBool = false;
     
     [SerializeField] 
     public TextMeshProUGUI kpText; 
@@ -76,6 +78,8 @@ public class PlayerPointHandler : MonoBehaviour
         
     }
     
+    
+    //Pirate Freeze Timer Code
     private IEnumerator SetPirateTimeOut()
     {
         pirateBool = true;
@@ -86,10 +90,31 @@ public class PlayerPointHandler : MonoBehaviour
     }
     
     
+    
+    //Swarm Timer Code;
+    private IEnumerator SetSwarmTimeOut()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            // Code to execute every 1 second.
+            Debug.Log("Something happening every 1 second." + i);
+
+            // Wait for 1 second.
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    private void Start()
+    {
+        //REMEMBER THIS FOR SPAWNING
+        //StartCoroutine(SetSwarmTimeOut()); THIS IS THE CALL TO START THE SWARM METHOD;
+    }
+
     void Update()
     {
         kpText.text = kpCounter.ToString();
         bpText.text = bpCounter.ToString();
+        
     }
 }
 

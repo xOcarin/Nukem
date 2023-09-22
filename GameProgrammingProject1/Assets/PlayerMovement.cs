@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
         pirateCooldown = handler.pirateBool;
         if (pirateCooldown == false) 
         {
-            Debug.Log(" Live:       " + pirateCooldown);
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 upPressed = true;
