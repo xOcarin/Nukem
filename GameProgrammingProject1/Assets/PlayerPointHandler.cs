@@ -6,13 +6,19 @@ using TMPro;
 
 public class PlayerPointHandler : MonoBehaviour
 {
+    //Point Counters
     public double kpCounter = 0;
     public double bpCounter = 0;
-
+    
+    //Power-Up Variables
+    public bool britishImmunity = false;
+    
+    //Enemy Bools
     public bool pirateBool = false;
     public bool startSwarm = false;
     public bool swarmBool = false;
     
+    //Text Stuff
     [SerializeField] 
     public TextMeshProUGUI kpText; 
     public TextMeshProUGUI bpText;
@@ -43,16 +49,16 @@ public class PlayerPointHandler : MonoBehaviour
         }
         if (collision.gameObject.tag == "British")
         {
-            
+            //BritishInvasion(); PLACEHOLDER
         }
         if (collision.gameObject.tag == "German")
         {
-            
+            //OleKnowldgeBomb(): PLACEHOLDER
         }
         
         
         //ENIMIES
-        if (collision.gameObject.tag == "Pointer")
+        if (collision.gameObject.tag == "Pointer" && britishImmunity == false)
         {
             if ((kpCounter / 2) > 10)
             {
@@ -63,7 +69,7 @@ public class PlayerPointHandler : MonoBehaviour
                 kpCounter = kpCounter - 10;
             }
         }
-        if (collision.gameObject.tag == "Pirate")
+        if (collision.gameObject.tag == "Pirate" && britishImmunity == false)
         {
             Debug.Log(" EHERHEHREHREHHER::::::       " + pirateBool);
             StartCoroutine(SetPirateTimeOut());
@@ -80,7 +86,7 @@ public class PlayerPointHandler : MonoBehaviour
     {
         pirateBool = true;
         
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(10f); //amount of time in seconds
         
         pirateBool = false; 
     }
@@ -100,6 +106,16 @@ public class PlayerPointHandler : MonoBehaviour
         }
     }
 
+    //British Power Timer
+    private IEnumerator SetImmuneTimeOut()
+    {
+        britishImmunity = true;
+        
+        yield return new WaitForSeconds(10f);
+        
+        britishImmunity = false; 
+    }
+    
     private void Start()
     {
         //REMEMBER THIS FOR SPAWNING
