@@ -28,6 +28,8 @@ public class TokenSpawnScript : MonoBehaviour
     {
         StartCoroutine(SpawnBrowniePoint(5.0f));
     }
+    
+    //branch test
 
     // Update is called once per frame
     void Update()
