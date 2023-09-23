@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Random = Unity.Mathematics.Random;
 
 public class TokenSpawnScript : MonoBehaviour
 {
@@ -9,12 +11,25 @@ public class TokenSpawnScript : MonoBehaviour
     public GameObject cookbookPrefab;
     public GameObject browniePrefab;
 
+
+    public GameObject brownie;
+    
+    public PlayerPointHandler handler;
+
     IEnumerator SpawnBrowniePoint(float waitTime)
     {
-        yield return new WaitForSeconds(waitTime);
-        Vector3 position = new Vector3(0f, 0f, -1f);
-        GameObject brownie = Instantiate(browniePrefab, position, Quaternion.identity);
-        StartCoroutine(DespawnBrowniePoint(brownie, 5.0f)); // Schedule despawning
+        while (true)
+        {
+            System.Random Randomx = new System.Random();
+            int x = Randomx.Next(-9, 9);
+            System.Random Randomy = new System.Random();
+            int y = Randomy.Next(-4, 4);
+
+            yield return new WaitForSeconds(waitTime);
+            Vector3 position = new Vector3(x, y, -1f);
+            brownie = Instantiate(browniePrefab, position, Quaternion.identity);
+            StartCoroutine(DespawnBrowniePoint(brownie, 5.0f)); // Schedule despawning 
+        }
     }
 
     IEnumerator DespawnBrowniePoint(GameObject brownie, float despawnTime)
