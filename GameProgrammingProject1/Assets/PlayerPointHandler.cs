@@ -18,10 +18,28 @@ public class PlayerPointHandler : MonoBehaviour
     public bool startSwarm = false;
     public bool swarmBool = false;
     
+    
     //Text Stuff
     [SerializeField] 
     public TextMeshProUGUI kpText; 
     public TextMeshProUGUI bpText;
+    
+    //Obtaining Prefab Variables
+    public TokenSpawnScript spawner;
+    
+    
+    private void Start()
+    {
+        //REMEMBER THIS FOR SPAWNING
+        //StartCoroutine(SetSwarmTimeOut()); THIS IS THE CALL TO STArT THE SWARM METHOD;
+        spawner = GetComponent<TokenSpawnScript>();
+    }
+    
+    void Update()
+    {
+        kpText.text = kpCounter.ToString();
+        bpText.text = bpCounter.ToString();
+    }
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -38,6 +56,7 @@ public class PlayerPointHandler : MonoBehaviour
         if (collision.gameObject.tag == "BrowniePoint")
         {
             bpCounter++;
+            Destroy(collision.gameObject);
         }
         
         
@@ -139,18 +158,6 @@ public class PlayerPointHandler : MonoBehaviour
         britishImmunity = false; 
     }
     
-    private void Start()
-    {
-        //REMEMBER THIS FOR SPAWNING
-        //StartCoroutine(SetSwarmTimeOut()); THIS IS THE CALL TO START THE SWARM METHOD;
-    }
-
-    void Update()
-    {
-        kpText.text = kpCounter.ToString();
-        bpText.text = bpCounter.ToString();
-        
-    }
 }
 
 
