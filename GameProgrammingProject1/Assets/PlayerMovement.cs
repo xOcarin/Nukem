@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // left as directions instead of wasd for directional clarity
     bool upPressed = false;
     bool downPressed = false;
     bool leftPressed = false;
@@ -36,23 +37,23 @@ public class PlayerMovement : MonoBehaviour
         pirateCooldown = handler.pirateBool; //assigning bool from PlayerPointHandler every frame.
         if (pirateCooldown == false) 
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 upPressed = true;
                 anim.SetBool("isRunning", true);
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 downPressed = true;
                 anim.SetBool("isRunning", true);
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 leftPressed = true;
                 anim.SetBool("isRunning", true);
                 transform.eulerAngles = new Vector3(0, 180, 0);
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 rightPressed = true;
                 anim.SetBool("isRunning", true);
@@ -61,23 +62,23 @@ public class PlayerMovement : MonoBehaviour
         }
             
             // Detect when keys are released
-            if (Input.GetKeyUp(KeyCode.UpArrow))
+            if (Input.GetKeyUp(KeyCode.W))
             {
                 upPressed = false;
                 anim.SetBool("isRunning", false);
             }
-            if (Input.GetKeyUp(KeyCode.DownArrow))
+            if (Input.GetKeyUp(KeyCode.S))
             {
                 downPressed = false;
                 anim.SetBool("isRunning", false);
             }
-            if (Input.GetKeyUp(KeyCode.LeftArrow))
+            if (Input.GetKeyUp(KeyCode.A))
             {
                 leftPressed = false;
                 transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
                 anim.SetBool("isRunning", false);
             }
-            if (Input.GetKeyUp(KeyCode.RightArrow))
+            if (Input.GetKeyUp(KeyCode.D))
             {
                 rightPressed = false;
                 transform.localScale = originalScale;

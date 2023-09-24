@@ -8,8 +8,8 @@ using UnityEngine.UIElements;
 public class PlayerPointHandler : MonoBehaviour
 {
     //Point Counters
-    public double kpCounter = 0;
-    public double bpCounter = 0;
+    public double kpCounter = 0;    // knowledge point counter
+    public double bpCounter = 0;    // brownie point counter
     
     //Power-Up Variables
     public bool britishImmunity = false;
@@ -38,7 +38,7 @@ public class PlayerPointHandler : MonoBehaviour
     private void Start()
     {
         //REMEMBER THIS FOR SPAWNING
-        //StartCoroutine(SetSwarmTimeOut()); THIS IS THE CALL TO STArT THE SWARM METHOD;
+        //StartCoroutine(SetSwarmTimeOut()); THIS IS THE CALL TO START THE SWARM METHOD;
         spawner = GetComponent<TokenSpawnScript>();
         anim = GetComponent<Animator>();
     }
@@ -55,10 +55,12 @@ public class PlayerPointHandler : MonoBehaviour
         //GOAL TOKEN COLLISION
         if (collision.gameObject.tag == "Pendant")
         {
+            Destroy(collision.gameObject);
             kpCounter = kpCounter + 25;
         }
         if (collision.gameObject.tag == "CookBook")
         {
+            Destroy(collision.gameObject);
             kpCounter++;
         }
         if (collision.gameObject.tag == "BrowniePoint")
@@ -69,40 +71,50 @@ public class PlayerPointHandler : MonoBehaviour
         
         
         //PROFESSOR COLLISION
-        if (collision.gameObject.tag == "American")
+        // removed resetting bpCounter if player doesn't have enoyght points because I'm not sure if it's intended ~Evan
+        if (collision.gameObject.tag == "AmericanPowerUp")
         {
             if (bpCounter >= 10)
             {
+                Debug.Log("The American Algorithmic Amplifier");
+                Destroy(collision.gameObject);
                 kpCounter = kpCounter * 2;
                 bpCounter = 0;
             }
             else
             {
-                bpCounter = 0;
+                Destroy(collision.gameObject);
+                //bpCounter = 0;
             }
         }
-        if (collision.gameObject.tag == "British" )
+        if (collision.gameObject.tag == "BritishPowerUp")
         {
             if (bpCounter >= 10)
             {
+                Debug.Log("The British Invasion");
+                Destroy(collision.gameObject);
                 StartCoroutine(SetImmuneTimeOut());
                 bpCounter = 0;
             }
             else
             {
-                bpCounter = 0;
+                Destroy(collision.gameObject);
+                //bpCounter = 0;
             }
         }
-        if (collision.gameObject.tag == "German")
+        if (collision.gameObject.tag == "GermanPowerUp")
         {
             if (bpCounter >= 10)
             {
+                Debug.Log("The Ole' Knowledge Bomb");
+                Destroy(collision.gameObject);
                 //OleKnowldgeBomb(): PLACEHOLDER
                 bpCounter = 0;
             }
             else
             {
-                bpCounter = 0;
+                Destroy(collision.gameObject);
+                //bpCounter = 0;
             }
         }
         
