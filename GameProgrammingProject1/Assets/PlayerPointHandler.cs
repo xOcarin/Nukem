@@ -121,7 +121,6 @@ public class PlayerPointHandler : MonoBehaviour
         }
         if (collision.gameObject.tag == "Pirate" && britishImmunity == false)
         {
-            Debug.Log(" EHERHEHREHREHHER::::::       " + pirateBool);
             Destroy(collision.gameObject);
             StartCoroutine(SetPirateTimeOut());
             

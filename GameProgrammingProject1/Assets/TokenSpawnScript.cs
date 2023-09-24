@@ -43,6 +43,7 @@ public class TokenSpawnScript : MonoBehaviour
             int y = Randomy.Next(-4, 4);
 
             yield return new WaitForSeconds(waitTime);
+            
             Vector3 position = new Vector3(x, y, -1f);
             brownie = Instantiate(browniePrefab, position, Quaternion.identity);
             StartCoroutine(DespawnBrowniePoint(brownie, 5.0f)); // Schedule despawning 
@@ -69,7 +70,7 @@ public class TokenSpawnScript : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             Vector3 position = new Vector3(x, y, -1f);
             pirate = Instantiate(piratePrefab, position, Quaternion.identity);
-            StartCoroutine(DespawnPirate(pirate, 5.0f)); // Schedule despawning 
+            StartCoroutine(DespawnPirate(pirate, 2.0f)); // Schedule despawning 
         }
     }
 
