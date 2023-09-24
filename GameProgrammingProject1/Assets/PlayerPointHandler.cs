@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UIElements;
 
 public class PlayerPointHandler : MonoBehaviour
 {
@@ -28,11 +29,18 @@ public class PlayerPointHandler : MonoBehaviour
     public TokenSpawnScript spawner;
     
     
+    //animation stuff
+    private Animator anim;
+
+    private bool isHitByPirate;
+    private bool fallFinished;
+    
     private void Start()
     {
         //REMEMBER THIS FOR SPAWNING
         //StartCoroutine(SetSwarmTimeOut()); THIS IS THE CALL TO STArT THE SWARM METHOD;
         spawner = GetComponent<TokenSpawnScript>();
+        anim = GetComponent<Animator>();
     }
     
     void Update()
@@ -55,8 +63,8 @@ public class PlayerPointHandler : MonoBehaviour
         }
         if (collision.gameObject.tag == "BrowniePoint")
         {
-            bpCounter++;
             Destroy(collision.gameObject);
+            bpCounter++;
         }
         
         
@@ -114,7 +122,9 @@ public class PlayerPointHandler : MonoBehaviour
         if (collision.gameObject.tag == "Pirate" && britishImmunity == false)
         {
             Debug.Log(" EHERHEHREHREHHER::::::       " + pirateBool);
+            Destroy(collision.gameObject);
             StartCoroutine(SetPirateTimeOut());
+            
         }
         if (collision.gameObject.tag == "Swarm")
         {
@@ -127,10 +137,19 @@ public class PlayerPointHandler : MonoBehaviour
     private IEnumerator SetPirateTimeOut()
     {
         pirateBool = true;
-        
+        StartCoroutine(fallingAnim());
+        anim.SetBool("fallFinished", true);
         yield return new WaitForSeconds(10f); //amount of time in seconds
-        
+        anim.SetBool("fallFinished", false);
         pirateBool = false; 
+    }
+    
+    private IEnumerator fallingAnim()
+    {
+        anim.SetBool("isHitByPirate", true);
+        yield return new WaitForSeconds(1f); //amount of time in seconds
+        anim.SetBool("isHitByPirate", false);
+        
     }
     
     
