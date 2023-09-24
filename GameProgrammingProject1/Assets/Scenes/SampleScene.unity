@@ -1291,10 +1291,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05c08c81a013e843bb8119c09f73c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pendantPrefab: {fileID: 8540809496770583575, guid: 3370bebf72ce6744a92d67b31c615665, type: 3}
+  OleProfessorPrefab: {fileID: 583530986811249344, guid: d8fd5e5806676744787c5fe6ae0f13b7, type: 3}
+  BritishProfessorPrefab: {fileID: 7687294649790970222, guid: 08cdd4b50b960af449dccc518acf87e0, type: 3}
+  AmericanProfessorPrefab: {fileID: 5928213688074294792, guid: 9fe285fdeb968e44da0b9bb0c5375a1f, type: 3}
   cookbookPrefab: {fileID: 9093471897634045357, guid: be8d695feb5c1a04d9cd4cb7e40520a2, type: 3}
+  pendantPrefab: {fileID: 8540809496770583575, guid: 3370bebf72ce6744a92d67b31c615665, type: 3}
   browniePrefab: {fileID: 3790119344861180010, guid: 2c8da192a2b2f4941bb29534efa3f29c, type: 3}
   piratePrefab: {fileID: 8504596270634617884, guid: cd44feb4fb4b42d4a858c6ce7d647987, type: 3}
+  OleProfessor: {fileID: 0}
+  BritishProfessor: {fileID: 0}
+  AmericanProfessor: {fileID: 0}
+  cookbook: {fileID: 0}
+  pendant: {fileID: 0}
   brownie: {fileID: 0}
   pirate: {fileID: 0}
   handler: {fileID: 0}
