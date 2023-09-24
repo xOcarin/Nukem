@@ -50,11 +50,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 leftPressed = true;
                 anim.SetBool("isRunning", true);
+                transform.eulerAngles = new Vector3(0, 180, 0);
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 rightPressed = true;
                 anim.SetBool("isRunning", true);
+                transform.eulerAngles = new Vector3(0, 0, 0);
             } 
         }
             
