@@ -1298,6 +1298,8 @@ MonoBehaviour:
   pendantPrefab: {fileID: 8540809496770583575, guid: 3370bebf72ce6744a92d67b31c615665, type: 3}
   browniePrefab: {fileID: 3790119344861180010, guid: 2c8da192a2b2f4941bb29534efa3f29c, type: 3}
   piratePrefab: {fileID: 8504596270634617884, guid: cd44feb4fb4b42d4a858c6ce7d647987, type: 3}
+  nullPrefab: {fileID: 3107233209170937904, guid: ebde29b2328405942a170518b7a5976f, type: 3}
+  swarmPrefab: {fileID: 2579915990742898784, guid: 86b7a4a3cd931614b86f5f3ce81119cd, type: 3}
   OleProfessor: {fileID: 0}
   BritishProfessor: {fileID: 0}
   AmericanProfessor: {fileID: 0}
@@ -1305,7 +1307,18 @@ MonoBehaviour:
   pendant: {fileID: 0}
   brownie: {fileID: 0}
   pirate: {fileID: 0}
+  nullP: {fileID: 0}
+  swarm: {fileID: 0}
   handler: {fileID: 0}
+  AmericanSpawning: 0
+  GermanSpawning: 0
+  BritshSpawning: 0
+  CookBookSpawning: 0
+  PendantSpawning: 0
+  BrowniePointSpawning: 0
+  PirateSpawning: 0
+  NullSpawning: 0
+  SwarmSpawning: 0
 --- !u!4 &1118540954
 Transform:
   m_ObjectHideFlags: 0

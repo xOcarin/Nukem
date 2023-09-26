@@ -4,8 +4,27 @@ using UnityEngine;
 using System;
 using Random = Unity.Mathematics.Random;
 
+
+[System.Serializable]
+public class Token
+{
+    public float spawnTime;
+    public GameObject gameObject1; // Assuming this is the prefab
+    public GameObject gameObject2; // Assuming this is the name
+
+    public Token(float time, GameObject prefab, GameObject name)
+    {
+        this.spawnTime = time;
+        this.gameObject1 = prefab;
+        this.gameObject2 = name;
+    }
+}
+
+
 public class TokenSpawnScript : MonoBehaviour
 {
+    
+    
     [SerializeField]
     // Prefabs
     public GameObject OleProfessorPrefab;
@@ -15,6 +34,8 @@ public class TokenSpawnScript : MonoBehaviour
     public GameObject pendantPrefab;
     public GameObject browniePrefab;
     public GameObject piratePrefab;
+    public GameObject nullPrefab;
+    public GameObject swarmPrefab;
 
     // GameObjects
     public GameObject OleProfessor;
@@ -24,179 +45,105 @@ public class TokenSpawnScript : MonoBehaviour
     public GameObject pendant;
     public GameObject brownie;
     public GameObject pirate;
+    public GameObject nullP;
+    public GameObject swarm;
 
     public PlayerPointHandler handler;
-
+    
+    
+    
+    //bools for handling spawning.
+    public bool AmericanSpawning = false;
+    public bool GermanSpawning = false;
+    public bool BritshSpawning = false;
+    public bool CookBookSpawning = false;
+    public bool PendantSpawning = false;
+    public bool BrowniePointSpawning = false;
+    public bool PirateSpawning = false;
+    public bool NullSpawning = false;
+    public bool SwarmSpawning = false;
+    
+    //times
+    public float shortTime = 3f;
+    public float medTime = 5f;
+    public float longTime = 7f;
+    
+    
+    private Token[] thingsToSpawnArr; 
+    
+    
+    
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        // floats should match despawn time so multiple can't spawn at once
-        // the professors can be different since they spawn so infrequently
+        thingsToSpawnArr = new Token[9];
+        //token Objects
+        thingsToSpawnArr[0] = new Token(3.0f, OleProfessorPrefab, OleProfessor);
+        thingsToSpawnArr[1] = new Token(3.0f, BritishProfessorPrefab, BritishProfessor);
+        thingsToSpawnArr[2] = new Token(3.0f, AmericanProfessorPrefab, AmericanProfessor);
+        thingsToSpawnArr[3] = new Token(5.0f, cookbookPrefab, cookbook);
+        thingsToSpawnArr[4] = new Token(5.0f, pendantPrefab, pendant);
+        thingsToSpawnArr[5] = new Token(5.0f, browniePrefab, brownie);
+        thingsToSpawnArr[6] = new Token(10.0f, piratePrefab, pirate);
+        thingsToSpawnArr[7] = new Token(10.0f, nullPrefab, nullP);
+        thingsToSpawnArr[8] = new Token(10.0f, swarmPrefab, swarm);
 
-        // can comment these out to prevent things from spawning
-        StartCoroutine(SpawnOleProfessor(10.0f));       // rare
-        StartCoroutine(SpawnBritishProfessor(10.0f));   // rare
-        StartCoroutine(SpawnAmericanProfessor(20.0f));  // very rare
-        StartCoroutine(SpawnCookBook(1.5f));            // very often
-        StartCoroutine(SpawnPendant(3.0f));             // often
-        StartCoroutine(SpawnBrowniePoint(5.0f));        // medium
-        StartCoroutine(SpawnPirate(5.0f));              // medium
+        StartCoroutine(SpawnCycle(thingsToSpawnArr));
+
+
     }
-
-    IEnumerator SpawnOleProfessor(float waitTime)
+    
+    
+    IEnumerator SpawnCycle(Token[] tokensToSpawn)
     {
         while (true)
         {
+            List<int> uniqueIndices = new List<int>();
+            System.Random randomIndex = new System.Random();
+
+            // Generate three unique random indices
+            while (uniqueIndices.Count < 3)
+            {
+                int randomTokenIndex = randomIndex.Next(0, tokensToSpawn.Length);
+                if (!uniqueIndices.Contains(randomTokenIndex))
+                {
+                    uniqueIndices.Add(randomTokenIndex);
+                }
+            }
+
+            // Start coroutines for the three unique indices
+            foreach (int randomTokenIndex in uniqueIndices)
+            {
+                Token randomToken = tokensToSpawn[randomTokenIndex];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+            }
+
+            // Wait for some time before starting the next set of coroutines
+            yield return new WaitForSeconds(5f);
+        }
+    }
+
+
+
+    
+    
+    
+    //SPAWN
+    IEnumerator SpawnSomething(float waitTime, GameObject prefab, GameObject name)
+    {
+        
             System.Random Randomx = new System.Random();
             int x = Randomx.Next(-9, 9);
             System.Random Randomy = new System.Random();
             int y = Randomy.Next(-4, 4);
-
-            yield return new WaitForSeconds(waitTime);
+            
             Vector3 position = new Vector3(x, y, -1f);
-            OleProfessor = Instantiate(OleProfessorPrefab, position, Quaternion.identity);
-            StartCoroutine(DespawnOleProfessor(OleProfessor, 5.0f));
-        }
-    }
-    IEnumerator DespawnOleProfessor(GameObject OleProfessor, float despawnTime)
-    {
-        yield return new WaitForSeconds(despawnTime);
-        Destroy(OleProfessor);  // Destroy the OleProfessor after despawnTime
-    }
-
-    IEnumerator SpawnBritishProfessor(float waitTime)
-    {
-        while (true)
-        {
-            System.Random Randomx = new System.Random();
-            int x = Randomx.Next(-9, 9);
-            System.Random Randomy = new System.Random();
-            int y = Randomy.Next(-4, 4);
-
+            name = Instantiate(prefab, position, Quaternion.identity);
             yield return new WaitForSeconds(waitTime);
-            Vector3 position = new Vector3(x, y, -1f);
-            BritishProfessor = Instantiate(BritishProfessorPrefab, position, Quaternion.identity);
-            StartCoroutine(DespawnBritishProfessor(BritishProfessor, 5.0f));
-        }
+            Destroy(name);   
+        
     }
-    IEnumerator DespawnBritishProfessor(GameObject BritishProfessor, float despawnTime)
-    {
-        yield return new WaitForSeconds(despawnTime);
-        Destroy(BritishProfessor);  // Destroy the BritishProfessor after despawnTime
-    }
-
-    IEnumerator SpawnAmericanProfessor(float waitTime)
-    {
-        while (true)
-        {
-            System.Random Randomx = new System.Random();
-            int x = Randomx.Next(-9, 9);
-            System.Random Randomy = new System.Random();
-            int y = Randomy.Next(-4, 4);
-
-            yield return new WaitForSeconds(waitTime);
-            Vector3 position = new Vector3(x, y, -1f);
-            AmericanProfessor = Instantiate(AmericanProfessorPrefab, position, Quaternion.identity);
-            StartCoroutine(DespawnAmericanProfessor(AmericanProfessor, 5.0f));
-        }
-    }
-    IEnumerator DespawnAmericanProfessor(GameObject AmericanProfessor, float despawnTime)
-    {
-        yield return new WaitForSeconds(despawnTime);
-        Destroy(AmericanProfessor);  // Destroy the AmericanProfessor after despawnTime
-    }
-
-    IEnumerator SpawnCookBook(float waitTime)
-    {
-        while (true)
-        {
-            System.Random Randomx = new System.Random();
-            int x = Randomx.Next(-9, 9);
-            System.Random Randomy = new System.Random();
-            int y = Randomy.Next(-4, 4);
-
-            yield return new WaitForSeconds(waitTime);
-            Vector3 position = new Vector3(x, y, -1f);
-            cookbook = Instantiate(cookbookPrefab, position, Quaternion.identity);
-            StartCoroutine(DespawnCookBook(cookbook, 1.5f));
-        }
-    }
-    IEnumerator DespawnCookBook(GameObject cookbook, float despawnTime)
-    {
-        yield return new WaitForSeconds(despawnTime);
-        Destroy(cookbook);  // Destroy the cookbook after despawnTime
-    }
-
-    IEnumerator SpawnPendant(float waitTime)
-    {
-        while (true)
-        {
-            System.Random Randomx = new System.Random();
-            int x = Randomx.Next(-9, 9);
-            System.Random Randomy = new System.Random();
-            int y = Randomy.Next(-4, 4);
-
-            yield return new WaitForSeconds(waitTime);
-            Vector3 position = new Vector3(x, y, -1f);
-            pendant = Instantiate(pendantPrefab, position, Quaternion.identity);
-            StartCoroutine(DespawnPendant(pendant, 3.0f));
-        }
-    }
-    IEnumerator DespawnPendant(GameObject pendant, float despawnTime)
-    {
-        yield return new WaitForSeconds(despawnTime);
-        Destroy(pendant);   // Destroy the pendant after despawnTime
-    }
-
-    IEnumerator SpawnBrowniePoint(float waitTime)
-    {
-        while (true)
-        {
-            System.Random Randomx = new System.Random();
-            int x = Randomx.Next(-9, 9);
-            System.Random Randomy = new System.Random();
-            int y = Randomy.Next(-4, 4);
-
-            yield return new WaitForSeconds(waitTime);
-
-            Vector3 position = new Vector3(x, y, -1f);
-            brownie = Instantiate(browniePrefab, position, Quaternion.identity);
-            StartCoroutine(DespawnBrowniePoint(brownie, 5.0f));
-        }
-    }
-    IEnumerator DespawnBrowniePoint(GameObject brownie, float despawnTime)
-    {
-        yield return new WaitForSeconds(despawnTime);
-        Destroy(brownie);   // Destroy the brownie point after despawnTime
-    }
-
-    //SPAWN PIRATE!!!
-    IEnumerator SpawnPirate(float waitTime)
-    {
-        while (true)
-        {
-            System.Random Randomx = new System.Random();
-            int x = Randomx.Next(-9, 9);
-            System.Random Randomy = new System.Random();
-            int y = Randomy.Next(-4, 4);
-
-            yield return new WaitForSeconds(waitTime);
-            Vector3 position = new Vector3(x, y, -1f);
-            pirate = Instantiate(piratePrefab, position, Quaternion.identity);
-            StartCoroutine(DespawnPirate(pirate, 5.0f));
-        }
-    }
-    IEnumerator DespawnPirate(GameObject pirate, float despawnTime)
-    {
-        yield return new WaitForSeconds(despawnTime);
-        Destroy(pirate);    // Destroy the pirate after despawnTime
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 }
