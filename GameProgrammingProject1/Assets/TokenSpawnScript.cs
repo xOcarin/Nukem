@@ -117,7 +117,18 @@ public class TokenSpawnScript : MonoBehaviour
             foreach (int randomTokenIndex in uniqueIndices)
             {
                 Token randomToken = tokensToSpawn[randomTokenIndex];
-                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+                if (randomTokenIndex == 5 || randomTokenIndex == 3) //looking for brownie or cookbook
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+                    }
+                }
+                else
+                {
+                    StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+                }
+                
             }
 
             // Wait for some time before starting the next set of coroutines
