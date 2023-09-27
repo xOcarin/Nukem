@@ -45,7 +45,8 @@ public class PlayerPointHandler : MonoBehaviour
     
     void Update()
     {
-        kpText.text = kpCounter.ToString();
+        //Math.Floor(kpCounter);
+        kpText.text = Math.Floor(kpCounter).ToString();
         bpText.text = bpCounter.ToString();
     }
     
