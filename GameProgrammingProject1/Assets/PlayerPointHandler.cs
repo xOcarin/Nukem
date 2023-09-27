@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class PlayerPointHandler : MonoBehaviour
 {
@@ -47,6 +48,11 @@ public class PlayerPointHandler : MonoBehaviour
     {
         kpText.text = kpCounter.ToString();
         bpText.text = bpCounter.ToString();
+
+        if (kpCounter <= 5)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
