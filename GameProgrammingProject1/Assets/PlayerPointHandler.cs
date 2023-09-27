@@ -140,29 +140,6 @@ public class PlayerPointHandler : MonoBehaviour
                 Destroy(obj);
             }
         }
-        //ENIMIE COLLISION
-        if (collision.gameObject.tag == "Pointer" && britishImmunity == false)
-        {
-            Debug.Log("pointer hit");
-            if ((kpCounter / 2) > 10)
-            {
-                kpCounter = kpCounter / 2;
-            }
-            else
-            {
-                kpCounter = kpCounter - 10;
-            }
-        }
-        if (collision.gameObject.tag == "Pirate" && britishImmunity == false)
-        {
-            Destroy(collision.gameObject);
-            StartCoroutine(SetPirateTimeOut());
-            
-        }
-        if (collision.gameObject.tag == "Swarm")
-        {
-            
-        }
     }
     //for pointers
     private void OnTriggerEnter2D(Collider2D collision)
@@ -171,14 +148,26 @@ public class PlayerPointHandler : MonoBehaviour
             // Check if the collided object has a specific tag (replace "YourTag" with the actual tag)
             if (collision.gameObject.CompareTag("Pointer"))
             {
-                Debug.Log("pointer hit");
-                if ((kpCounter / 2) > 10)
+                if (britishImmunity == false)
                 {
-                    kpCounter = kpCounter / 2;
+                    Debug.Log("pointer hit");
+                    if ((kpCounter / 2) > 10)
+                    {
+                        kpCounter = kpCounter / 2;
+                    }
+                    else
+                    {
+                        kpCounter = kpCounter - 10;
+                    }
+                    Destroy(collision.gameObject);   
                 }
-                else
+            }
+            if (collision.gameObject.CompareTag("Pirate"))
+            {
+                if (britishImmunity == false)
                 {
-                    kpCounter = kpCounter - 10;
+                    Destroy(collision.gameObject);
+                    StartCoroutine(SetPirateTimeOut());
                 }
             }
     }
