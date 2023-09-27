@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4655e843a15d3774dac44a1df743b078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kpCounter: 20
+  kpCounter: 2000
   bpCounter: 10
   britishImmunity: 0
   pirateBool: 0

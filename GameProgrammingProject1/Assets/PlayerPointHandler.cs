@@ -80,6 +80,7 @@ public class PlayerPointHandler : MonoBehaviour
                 Destroy(collision.gameObject);
                 kpCounter = kpCounter * 2;
                 bpCounter = 0;
+                swarmBool = false;
             }
             else
             {
@@ -95,6 +96,7 @@ public class PlayerPointHandler : MonoBehaviour
                 Destroy(collision.gameObject);
                 StartCoroutine(SetImmuneTimeOut());
                 bpCounter = 0;
+                swarmBool = false;
             }
             else
             {
@@ -109,6 +111,7 @@ public class PlayerPointHandler : MonoBehaviour
                 Debug.Log("The Ole' Knowledge Bomb");
                 Destroy(collision.gameObject);
                 OleKnowledgeBomb();
+                swarmBool = false;
                 //bpCounter = 0;
             }
             else
@@ -170,8 +173,28 @@ public class PlayerPointHandler : MonoBehaviour
                     StartCoroutine(SetPirateTimeOut());
                 }
             }
+            if (collision.gameObject.CompareTag("Swarm"))
+            {
+                if (britishImmunity == false)
+                {
+                    swarmBool = true;
+                    StartCoroutine(SwarmAttack());
+                    Destroy(collision.gameObject);
+                    swarmBool = true;
+                }
+            }
     }
     
+    //swarm attack code
+    private IEnumerator SwarmAttack()
+    {
+        Debug.Log("here:" + swarmBool);
+        while (swarmBool == true)
+        {
+            kpCounter = kpCounter * .9;
+            yield return new WaitForSeconds(1f);
+        }
+    }
     
     //Pirate Freeze Timer Code
     private IEnumerator SetPirateTimeOut()
