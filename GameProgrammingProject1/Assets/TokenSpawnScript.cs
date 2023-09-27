@@ -80,6 +80,7 @@ public class TokenSpawnScript : MonoBehaviour
     {
         thingsToSpawnArr = new Token[9];
         //token Objects
+ 
         thingsToSpawnArr[0] = new Token(3.0f, OleProfessorPrefab, OleProfessor);
         thingsToSpawnArr[1] = new Token(3.0f, BritishProfessorPrefab, BritishProfessor);
         thingsToSpawnArr[2] = new Token(3.0f, AmericanProfessorPrefab, AmericanProfessor);
@@ -89,7 +90,6 @@ public class TokenSpawnScript : MonoBehaviour
         thingsToSpawnArr[6] = new Token(10.0f, piratePrefab, pirate);
         thingsToSpawnArr[7] = new Token(10.0f, nullPrefab, nullP);
         thingsToSpawnArr[8] = new Token(10.0f, swarmPrefab, swarm);
-
         StartCoroutine(SpawnCycle(thingsToSpawnArr));
 
 
@@ -102,7 +102,7 @@ public class TokenSpawnScript : MonoBehaviour
         {
             List<int> uniqueIndices = new List<int>();
             System.Random randomIndex = new System.Random();
-
+            
             // Generate three unique random indices
             while (uniqueIndices.Count < 3)
             {
@@ -124,6 +124,10 @@ public class TokenSpawnScript : MonoBehaviour
                         StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
                     }
                 }
+                else if(randomTokenIndex == 7) // looking for pointer enemy
+                {
+                    StartCoroutine(SpawnPointer(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+                }
                 else
                 {
                     StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
@@ -132,7 +136,7 @@ public class TokenSpawnScript : MonoBehaviour
             }
             
             float time = 3f + UnityEngine.Random.value * 4f;
-            Debug.Log(time);
+            //Debug.Log(time);
             // Wait for some time before starting the next set of coroutines
             yield return new WaitForSeconds(time);
         }
@@ -156,6 +160,20 @@ public class TokenSpawnScript : MonoBehaviour
             name = Instantiate(prefab, position, Quaternion.identity);
             yield return new WaitForSeconds(waitTime);
             Destroy(name);   
+        
+    }
+    
+    IEnumerator SpawnPointer(float waitTime, GameObject prefab, GameObject name)
+    {
+        int x = (UnityEngine.Random.Range(0, 2) == 0) ? -8 : 8;
+
+        System.Random Randomy = new System.Random();
+        int y = Randomy.Next(-4, 4);
+            
+        Vector3 position = new Vector3(x, y, -1f);
+        name = Instantiate(prefab, position, Quaternion.identity);
+        yield return new WaitForSeconds(waitTime);
+        Destroy(name);   
         
     }
     

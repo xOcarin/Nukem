@@ -143,6 +143,7 @@ public class PlayerPointHandler : MonoBehaviour
         //ENIMIE COLLISION
         if (collision.gameObject.tag == "Pointer" && britishImmunity == false)
         {
+            Debug.Log("pointer hit");
             if ((kpCounter / 2) > 10)
             {
                 kpCounter = kpCounter / 2;
@@ -162,6 +163,24 @@ public class PlayerPointHandler : MonoBehaviour
         {
             
         }
+    }
+    //for pointers
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Check if the collision involves a trigger collider
+            // Check if the collided object has a specific tag (replace "YourTag" with the actual tag)
+            if (collision.gameObject.CompareTag("Pointer"))
+            {
+                Debug.Log("pointer hit");
+                if ((kpCounter / 2) > 10)
+                {
+                    kpCounter = kpCounter / 2;
+                }
+                else
+                {
+                    kpCounter = kpCounter - 10;
+                }
+            }
     }
     
     
