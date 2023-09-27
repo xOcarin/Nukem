@@ -130,9 +130,11 @@ public class TokenSpawnScript : MonoBehaviour
                 }
                 
             }
-
+            
+            float time = 3f + UnityEngine.Random.value * 4f;
+            Debug.Log(time);
             // Wait for some time before starting the next set of coroutines
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(time);
         }
     }
 

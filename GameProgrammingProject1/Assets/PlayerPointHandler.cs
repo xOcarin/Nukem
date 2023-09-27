@@ -84,7 +84,7 @@ public class PlayerPointHandler : MonoBehaviour
             else
             {
                 Destroy(collision.gameObject);
-                //bpCounter = 0;
+                bpCounter = 0;
             }
         }
         if (collision.gameObject.tag == "BritishPowerUp")
@@ -99,7 +99,7 @@ public class PlayerPointHandler : MonoBehaviour
             else
             {
                 Destroy(collision.gameObject);
-                //bpCounter = 0;
+                bpCounter = 0;
             }
         }
         if (collision.gameObject.tag == "GermanPowerUp")
@@ -108,8 +108,8 @@ public class PlayerPointHandler : MonoBehaviour
             {
                 Debug.Log("The Ole' Knowledge Bomb");
                 Destroy(collision.gameObject);
-                //OleKnowldgeBomb(): PLACEHOLDER
-                bpCounter = 0;
+                OleKnowledgeBomb();
+                //bpCounter = 0;
             }
             else
             {
@@ -117,8 +117,29 @@ public class PlayerPointHandler : MonoBehaviour
                 //bpCounter = 0;
             }
         }
-        
-        
+
+
+        void OleKnowledgeBomb()
+        {
+            GameObject[] objectsWithPointerTag = GameObject.FindGameObjectsWithTag("Pointer");
+            GameObject[] objectsWithPirateTag = GameObject.FindGameObjectsWithTag("Pirate");
+            GameObject[] objectsWithSwarmTag = GameObject.FindGameObjectsWithTag("Swarm");
+
+            foreach (GameObject obj in objectsWithPointerTag)
+            {
+                Destroy(obj);
+            }
+
+            foreach (GameObject obj in objectsWithPirateTag)
+            {
+                Destroy(obj);
+            }
+
+            foreach (GameObject obj in objectsWithSwarmTag)
+            {
+                Destroy(obj);
+            }
+        }
         //ENIMIE COLLISION
         if (collision.gameObject.tag == "Pointer" && britishImmunity == false)
         {
