@@ -69,7 +69,9 @@ public class TokenSpawnScript : MonoBehaviour
     public float longTime = 7f;
     
     
-    private Token[] thingsToSpawnArr; 
+    private Token[] EnemyArr; 
+    private Token[] PowerUpArr; 
+    private Token[] GoalArr; 
     
     
     
@@ -78,62 +80,102 @@ public class TokenSpawnScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        thingsToSpawnArr = new Token[9];
+        EnemyArr = new Token[3];
+        PowerUpArr = new Token[3];
+        GoalArr = new Token[3];
         //token Objects
  
-        thingsToSpawnArr[0] = new Token(3.0f, OleProfessorPrefab, OleProfessor);
-        thingsToSpawnArr[1] = new Token(3.0f, BritishProfessorPrefab, BritishProfessor);
-        thingsToSpawnArr[2] = new Token(3.0f, AmericanProfessorPrefab, AmericanProfessor);
-        thingsToSpawnArr[3] = new Token(5.0f, cookbookPrefab, cookbook);
-        thingsToSpawnArr[4] = new Token(5.0f, pendantPrefab, pendant);
-        thingsToSpawnArr[5] = new Token(5.0f, browniePrefab, brownie);
-        thingsToSpawnArr[6] = new Token(10.0f, piratePrefab, pirate);
-        thingsToSpawnArr[7] = new Token(10.0f, nullPrefab, nullP);
-        thingsToSpawnArr[8] = new Token(10.0f, swarmPrefab, swarm);
-        StartCoroutine(SpawnCycle(thingsToSpawnArr));
+        PowerUpArr[0] = new Token(3.0f, OleProfessorPrefab, OleProfessor);
+        PowerUpArr[1] = new Token(3.0f, BritishProfessorPrefab, BritishProfessor);
+        PowerUpArr[2] = new Token(3.0f, AmericanProfessorPrefab, AmericanProfessor);
+        
+        GoalArr[0] = new Token(5.0f, cookbookPrefab, cookbook);
+        GoalArr[1] = new Token(5.0f, pendantPrefab, pendant);
+        GoalArr[2] = new Token(5.0f, browniePrefab, brownie);
+        
+        EnemyArr[0] = new Token(10.0f, piratePrefab, pirate);
+        EnemyArr[1] = new Token(10.0f, nullPrefab, nullP);
+        EnemyArr[2] = new Token(10.0f, swarmPrefab, swarm);
 
+        StartCoroutine(SpawnCycleGoal(GoalArr));
+        StartCoroutine(SpawnCycleEnemy(EnemyArr));
+        StartCoroutine(SpawnCyclePowerUp(PowerUpArr));
 
     }
     
     
-    IEnumerator SpawnCycle(Token[] tokensToSpawn)
+    IEnumerator SpawnCycleGoal(Token[] tokensToSpawn)
     {
+        Token randomToken;
         while (true)
         {
-            List<int> uniqueIndices = new List<int>();
-            System.Random randomIndex = new System.Random();
-            
-            // Generate three unique random indices
-            while (uniqueIndices.Count < 3)
+            System.Random RandomNoForToken = new System.Random();
+            int Choice = RandomNoForToken.Next(0, 100);
+            if (Choice > 0 && Choice < 15)
             {
-                int randomTokenIndex = randomIndex.Next(0, tokensToSpawn.Length);
-                if (!uniqueIndices.Contains(randomTokenIndex))
-                {
-                    uniqueIndices.Add(randomTokenIndex);
-                }
-            }
+                randomToken = tokensToSpawn[2];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
 
-            // Start coroutines for the three unique indices
-            foreach (int randomTokenIndex in uniqueIndices)
-            {
-                Token randomToken = tokensToSpawn[randomTokenIndex];
-                if (randomTokenIndex == 5 || randomTokenIndex == 3) //looking for brownie or cookbook
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
-                    }
-                }
-                else if(randomTokenIndex == 7) // looking for pointer enemy
-                {
-                    StartCoroutine(SpawnPointer(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
-                }
-                else
-                {
-                    StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
-                }
-                
             }
+            else if (Choice > 15 && Choice < 35)
+            {
+                randomToken = tokensToSpawn[1];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+            }
+            else if (Choice > 35 && Choice < 75)
+            {
+                randomToken = tokensToSpawn[0];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+            }
+            Debug.Log(Choice);
+            
+            
+            
+            
+
+               
+        
+                
+            
+            float time = 0f + UnityEngine.Random.value * 3f;
+            //Debug.Log(time);
+            // Wait for some time before starting the next set of coroutines
+            yield return new WaitForSeconds(time);
+        }
+    }
+    
+    IEnumerator SpawnCycleEnemy(Token[] tokensToSpawn)
+    {
+        Token randomToken;
+        while (true)
+        {
+            System.Random RandomNoForToken = new System.Random();
+            int Choice = RandomNoForToken.Next(0, 100);
+            if (Choice > 0 && Choice < 20)
+            {
+                randomToken = tokensToSpawn[2];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+
+            }
+            else if (Choice > 20 && Choice < 40)
+            {
+                randomToken = tokensToSpawn[0];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+            }
+            else if (Choice > 40 && Choice < 50)
+            {
+                randomToken = tokensToSpawn[1];
+                StartCoroutine(SpawnPointer(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+            }
+            Debug.Log(Choice);
+            
+            
+            
+            
+
+               
+        
+                
             
             float time = 3f + UnityEngine.Random.value * 4f;
             //Debug.Log(time);
@@ -143,7 +185,45 @@ public class TokenSpawnScript : MonoBehaviour
     }
 
 
+    IEnumerator SpawnCyclePowerUp(Token[] tokensToSpawn)
+    {
+        Token randomToken;
+        while (true)
+        {
+            System.Random RandomNoForToken = new System.Random();
+            int Choice = RandomNoForToken.Next(0, 100);
+            if (Choice > 0 && Choice < 10)
+            {
+                randomToken = tokensToSpawn[0];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
 
+            }
+            else if (Choice > 10 && Choice < 20)
+            {
+                randomToken = tokensToSpawn[1];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+            }
+            else if (Choice > 20 && Choice < 25)
+            {
+                randomToken = tokensToSpawn[2];
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+            }
+            Debug.Log(Choice);
+            
+            
+            
+            
+
+               
+        
+                
+            
+            float time = 3f + UnityEngine.Random.value * 4f;
+            //Debug.Log(time);
+            // Wait for some time before starting the next set of coroutines
+            yield return new WaitForSeconds(time);
+        }
+    }
     
     
     
@@ -152,7 +232,7 @@ public class TokenSpawnScript : MonoBehaviour
     {
         
             System.Random Randomx = new System.Random();
-            int x = Randomx.Next(-9, 9);
+            int x = Randomx.Next(-8, 8);
             System.Random Randomy = new System.Random();
             int y = Randomy.Next(-4, 4);
             
