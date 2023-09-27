@@ -84,7 +84,7 @@ public class PlayerPointHandler : MonoBehaviour
             else
             {
                 Destroy(collision.gameObject);
-                //bpCounter = 0;
+                bpCounter = 0;
             }
         }
         if (collision.gameObject.tag == "BritishPowerUp")
@@ -99,7 +99,7 @@ public class PlayerPointHandler : MonoBehaviour
             else
             {
                 Destroy(collision.gameObject);
-                //bpCounter = 0;
+                bpCounter = 0;
             }
         }
         if (collision.gameObject.tag == "GermanPowerUp")
@@ -108,8 +108,8 @@ public class PlayerPointHandler : MonoBehaviour
             {
                 Debug.Log("The Ole' Knowledge Bomb");
                 Destroy(collision.gameObject);
-                //OleKnowldgeBomb(): PLACEHOLDER
-                bpCounter = 0;
+                OleKnowledgeBomb();
+                //bpCounter = 0;
             }
             else
             {
@@ -117,11 +117,33 @@ public class PlayerPointHandler : MonoBehaviour
                 //bpCounter = 0;
             }
         }
-        
-        
+
+
+        void OleKnowledgeBomb()
+        {
+            GameObject[] objectsWithPointerTag = GameObject.FindGameObjectsWithTag("Pointer");
+            GameObject[] objectsWithPirateTag = GameObject.FindGameObjectsWithTag("Pirate");
+            GameObject[] objectsWithSwarmTag = GameObject.FindGameObjectsWithTag("Swarm");
+
+            foreach (GameObject obj in objectsWithPointerTag)
+            {
+                Destroy(obj);
+            }
+
+            foreach (GameObject obj in objectsWithPirateTag)
+            {
+                Destroy(obj);
+            }
+
+            foreach (GameObject obj in objectsWithSwarmTag)
+            {
+                Destroy(obj);
+            }
+        }
         //ENIMIE COLLISION
         if (collision.gameObject.tag == "Pointer" && britishImmunity == false)
         {
+            Debug.Log("pointer hit");
             if ((kpCounter / 2) > 10)
             {
                 kpCounter = kpCounter / 2;
@@ -133,7 +155,6 @@ public class PlayerPointHandler : MonoBehaviour
         }
         if (collision.gameObject.tag == "Pirate" && britishImmunity == false)
         {
-            Debug.Log(" EHERHEHREHREHHER::::::       " + pirateBool);
             Destroy(collision.gameObject);
             StartCoroutine(SetPirateTimeOut());
             
@@ -142,6 +163,24 @@ public class PlayerPointHandler : MonoBehaviour
         {
             
         }
+    }
+    //for pointers
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Check if the collision involves a trigger collider
+            // Check if the collided object has a specific tag (replace "YourTag" with the actual tag)
+            if (collision.gameObject.CompareTag("Pointer"))
+            {
+                Debug.Log("pointer hit");
+                if ((kpCounter / 2) > 10)
+                {
+                    kpCounter = kpCounter / 2;
+                }
+                else
+                {
+                    kpCounter = kpCounter - 10;
+                }
+            }
     }
     
     

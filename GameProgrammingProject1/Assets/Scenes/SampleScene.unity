@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kpCounter: 0
-  bpCounter: 0
+  bpCounter: 200
   britishImmunity: 0
   pirateBool: 0
   startSwarm: 0
@@ -1291,13 +1291,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05c08c81a013e843bb8119c09f73c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OleProfessorPrefab: {fileID: 583530986811249344, guid: d8fd5e5806676744787c5fe6ae0f13b7, type: 3}
-  BritishProfessorPrefab: {fileID: 7687294649790970222, guid: 08cdd4b50b960af449dccc518acf87e0, type: 3}
-  AmericanProfessorPrefab: {fileID: 5928213688074294792, guid: 9fe285fdeb968e44da0b9bb0c5375a1f, type: 3}
+  OleProfessorPrefab: {fileID: 8212229026835224619, guid: 68af1332b4ac56d4ea9a38e022d9f7e8, type: 3}
+  BritishProfessorPrefab: {fileID: 1437579739055648043, guid: 826bd91b417863e4799f2edbb9ec9eb1, type: 3}
+  AmericanProfessorPrefab: {fileID: 4870876463638219904, guid: 4004af13497169847b50abb933d329da, type: 3}
   cookbookPrefab: {fileID: 9093471897634045357, guid: be8d695feb5c1a04d9cd4cb7e40520a2, type: 3}
   pendantPrefab: {fileID: 8540809496770583575, guid: 3370bebf72ce6744a92d67b31c615665, type: 3}
   browniePrefab: {fileID: 3790119344861180010, guid: 2c8da192a2b2f4941bb29534efa3f29c, type: 3}
-  piratePrefab: {fileID: 8504596270634617884, guid: cd44feb4fb4b42d4a858c6ce7d647987, type: 3}
+  piratePrefab: {fileID: 4619791406645789627, guid: 9f6c7a202c625974ca3164f813076af3, type: 3}
+  nullPrefab: {fileID: 6916137578110323022, guid: c15dd01b70320744c92c94b836fad2a5, type: 3}
+  swarmPrefab: {fileID: 7262781332855523489, guid: 1729715fbf4e4174fa9a3495fe46e547, type: 3}
   OleProfessor: {fileID: 0}
   BritishProfessor: {fileID: 0}
   AmericanProfessor: {fileID: 0}
@@ -1305,7 +1307,21 @@ MonoBehaviour:
   pendant: {fileID: 0}
   brownie: {fileID: 0}
   pirate: {fileID: 0}
+  nullP: {fileID: 0}
+  swarm: {fileID: 0}
   handler: {fileID: 0}
+  AmericanSpawning: 0
+  GermanSpawning: 0
+  BritshSpawning: 0
+  CookBookSpawning: 0
+  PendantSpawning: 0
+  BrowniePointSpawning: 0
+  PirateSpawning: 0
+  NullSpawning: 0
+  SwarmSpawning: 0
+  shortTime: 3
+  medTime: 5
+  longTime: 7
 --- !u!4 &1118540954
 Transform:
   m_ObjectHideFlags: 0
