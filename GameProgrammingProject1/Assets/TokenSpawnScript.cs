@@ -46,7 +46,7 @@ public class TokenSpawnScript : MonoBehaviour
     public GameObject swarm;
 
     public PlayerPointHandler handler;
-    
+
     //bools for handling spawning.
     public bool AmericanSpawning = false;
     public bool GermanSpawning = false;
@@ -57,20 +57,20 @@ public class TokenSpawnScript : MonoBehaviour
     public bool PirateSpawning = false;
     public bool NullSpawning = false;
     public bool SwarmSpawning = false;
-    
+
     //times
     public float shortTime = 3f;
     public float medTime = 5f;
     public float longTime = 7f;
-    
-    private Token[] EnemyArr; 
-    private Token[] PowerUpArr; 
+
+    private Token[] EnemyArr;
+    private Token[] PowerUpArr;
     private Token[] GoalArr;
 
     public PlayerMovement CoordinateGrabber;
     public float PlayerX;
     public float PlayerY;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,15 +78,15 @@ public class TokenSpawnScript : MonoBehaviour
         PowerUpArr = new Token[3];
         GoalArr = new Token[3];
         //token Objects
- 
+
         PowerUpArr[0] = new Token(3.0f, OleProfessorPrefab, OleProfessor);
         PowerUpArr[1] = new Token(3.0f, BritishProfessorPrefab, BritishProfessor);
         PowerUpArr[2] = new Token(3.0f, AmericanProfessorPrefab, AmericanProfessor);
-        
+
         GoalArr[0] = new Token(5.0f, cookbookPrefab, cookbook);
         GoalArr[1] = new Token(5.0f, pendantPrefab, pendant);
         GoalArr[2] = new Token(5.0f, browniePrefab, brownie);
-        
+
         EnemyArr[0] = new Token(10.0f, piratePrefab, pirate);
         EnemyArr[1] = new Token(10.0f, nullPrefab, nullP);
         EnemyArr[2] = new Token(10.0f, swarmPrefab, swarm);
@@ -127,14 +127,14 @@ public class TokenSpawnScript : MonoBehaviour
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
             Debug.Log(Choice);
-            
+
             float time = 0f + UnityEngine.Random.value * 3f;
             //Debug.Log(time);
             // Wait for some time before starting the next set of coroutines
             yield return new WaitForSeconds(time);
         }
     }
-    
+
     IEnumerator SpawnCycleEnemy(Token[] tokensToSpawn)
     {
         Token randomToken;
@@ -158,7 +158,7 @@ public class TokenSpawnScript : MonoBehaviour
                 StartCoroutine(SpawnPointer(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
             Debug.Log(Choice);
-            
+
             float time = 3f + UnityEngine.Random.value * 4f;
             //Debug.Log(time);
             // Wait for some time before starting the next set of coroutines
@@ -190,14 +190,14 @@ public class TokenSpawnScript : MonoBehaviour
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
             Debug.Log(Choice);
-            
+
             float time = 3f + UnityEngine.Random.value * 4f;
             //Debug.Log(time);
             // Wait for some time before starting the next set of coroutines
             yield return new WaitForSeconds(time);
         }
     }
-    
+
     //SPAWN
     IEnumerator SpawnSomething(float waitTime, GameObject prefab, GameObject name)
     {
@@ -216,23 +216,22 @@ public class TokenSpawnScript : MonoBehaviour
             Randomy = new System.Random();
             y = Randomy.Next(-4, 4);
         }
-            
+
         Vector3 position = new Vector3(x, y, -1f);
         name = Instantiate(prefab, position, Quaternion.identity);
         yield return new WaitForSeconds(waitTime);
-        Destroy(name);   
+        Destroy(name);
     }
-    
+
     IEnumerator SpawnPointer(float waitTime, GameObject prefab, GameObject name)
     {
         int x = (UnityEngine.Random.Range(0, 2) == 0) ? -8 : 8;
-
         System.Random Randomy = new System.Random();
         int y = Randomy.Next(-4, 4);
-            
+
         Vector3 position = new Vector3(x, y, -1f);
         name = Instantiate(prefab, position, Quaternion.identity);
         yield return new WaitForSeconds(waitTime);
-        Destroy(name);   
+        Destroy(name);
     }
 }

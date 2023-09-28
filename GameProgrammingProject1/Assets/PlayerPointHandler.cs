@@ -36,8 +36,6 @@ public class PlayerPointHandler : MonoBehaviour
     
     private void Start()
     {
-        //REMEMBER THIS FOR SPAWNING
-        //StartCoroutine(SetSwarmTimeOut()); THIS IS THE CALL TO START THE SWARM METHOD;
         spawner = GetComponent<TokenSpawnScript>();
         anim = GetComponent<Animator>();
     }
