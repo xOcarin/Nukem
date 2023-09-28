@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     {
         xPos = Player.transform.position.x;     // grabs player position for spawning check
         yPos = Player.transform.position.y;     // grabs player position for spawning check
-        Debug.Log(xPos + " " + yPos);
+        //Debug.Log(xPos + " " + yPos);
         pirateCooldown = handler.pirateBool; //assigning bool from PlayerPointHandler every frame.
         if (pirateCooldown == false) 
         {

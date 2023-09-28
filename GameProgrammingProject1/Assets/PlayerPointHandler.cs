@@ -11,7 +11,8 @@ public class PlayerPointHandler : MonoBehaviour
     //Point Counters
     public double kpCounter = 0;    // knowledge point counter
     public double bpCounter = 0;    // brownie point counter
-    
+
+    public double topKp = 0;
     //Power-Up Variables
     public bool britishImmunity = false;
     
@@ -24,6 +25,9 @@ public class PlayerPointHandler : MonoBehaviour
     [SerializeField] 
     public TextMeshProUGUI kpText; 
     public TextMeshProUGUI bpText;
+    public TextMeshProUGUI maxText;
+
+    public double fourthMax;
     
     //Obtaining Prefab Variables
     public TokenSpawnScript spawner;
@@ -44,8 +48,18 @@ public class PlayerPointHandler : MonoBehaviour
     {
         kpText.text = Math.Floor(kpCounter).ToString();
         bpText.text = bpCounter.ToString();
+        fourthMax = topKp / 4;
+        maxText.text = Math.Floor(fourthMax).ToString();
+        
 
-        if (kpCounter <= 5)
+        if (kpCounter > topKp)
+        {
+            topKp = kpCounter;
+        }
+
+
+
+        if (kpCounter <= 0 || kpCounter <= Math.Floor(fourthMax))
         {
             SceneManager.LoadScene(2);
         }

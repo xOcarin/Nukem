@@ -22,6 +22,8 @@ public class Token
 
 public class TokenSpawnScript : MonoBehaviour
 {
+    
+    
     [SerializeField]
     // Prefabs
     public GameObject OleProfessorPrefab;
@@ -66,14 +68,16 @@ public class TokenSpawnScript : MonoBehaviour
     private Token[] EnemyArr;
     private Token[] PowerUpArr;
     private Token[] GoalArr;
-
+    
     public PlayerMovement CoordinateGrabber;
-    public float PlayerX;
-    public float PlayerY;
+    private float PlayerX = 0;
+    private float PlayerY = 0;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        
         EnemyArr = new Token[3];
         PowerUpArr = new Token[3];
         GoalArr = new Token[3];
@@ -95,13 +99,13 @@ public class TokenSpawnScript : MonoBehaviour
         StartCoroutine(SpawnCycleEnemy(EnemyArr));
         StartCoroutine(SpawnCyclePowerUp(PowerUpArr));
 
-        CoordinateGrabber = GetComponent<PlayerMovement>();
+        
     }
 
     void Update()
     {
-        PlayerX = CoordinateGrabber.xPos;
         PlayerY = CoordinateGrabber.yPos;
+        PlayerX = CoordinateGrabber.xPos;
     }
 
     IEnumerator SpawnCycleGoal(Token[] tokensToSpawn)
@@ -126,7 +130,7 @@ public class TokenSpawnScript : MonoBehaviour
                 randomToken = tokensToSpawn[0];
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
-            Debug.Log(Choice);
+            
 
             float time = 0f + UnityEngine.Random.value * 3f;
             //Debug.Log(time);
@@ -142,22 +146,22 @@ public class TokenSpawnScript : MonoBehaviour
         {
             System.Random RandomNoForToken = new System.Random();
             int Choice = RandomNoForToken.Next(0, 100);
-            if (Choice > 0 && Choice < 20)
+            if (Choice > 0 && Choice < 25)
             {
                 randomToken = tokensToSpawn[2];
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
-            else if (Choice > 20 && Choice < 40)
+            else if (Choice > 25 && Choice < 45)
             {
                 randomToken = tokensToSpawn[0];
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
-            else if (Choice > 40 && Choice < 50)
+            else if (Choice > 45 && Choice < 55)
             {
                 randomToken = tokensToSpawn[1];
                 StartCoroutine(SpawnPointer(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
-            Debug.Log(Choice);
+            
 
             float time = 3f + UnityEngine.Random.value * 4f;
             //Debug.Log(time);
@@ -173,23 +177,23 @@ public class TokenSpawnScript : MonoBehaviour
         {
             System.Random RandomNoForToken = new System.Random();
             int Choice = RandomNoForToken.Next(0, 100);
-            if (Choice > 0 && Choice < 10)
+            if (Choice > 0 && Choice < 20)
             {
                 randomToken = tokensToSpawn[0];
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
 
             }
-            else if (Choice > 10 && Choice < 20)
+            else if (Choice > 20 && Choice < 40)
             {
                 randomToken = tokensToSpawn[1];
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
-            else if (Choice > 20 && Choice < 25)
+            else if (Choice > 40 && Choice < 50)
             {
                 randomToken = tokensToSpawn[2];
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
-            Debug.Log(Choice);
+            
 
             float time = 3f + UnityEngine.Random.value * 4f;
             //Debug.Log(time);
@@ -201,20 +205,25 @@ public class TokenSpawnScript : MonoBehaviour
     //SPAWN
     IEnumerator SpawnSomething(float waitTime, GameObject prefab, GameObject name)
     {
-        //PlayerX = CoordinateGrabber.xPos;
-        //PlayerY = CoordinateGrabber.yPos;
-
         System.Random Randomx = new System.Random();
-        int x = Randomx.Next(-8, 8);
+        float x = Randomx.Next(-8, 8);
         System.Random Randomy = new System.Random();
-        int y = Randomy.Next(-4, 4);
+        float y = Randomy.Next(-4, 4);
 
-        while(x == PlayerX || y == PlayerY)
+        float lowerx = PlayerX - 1;
+        float upperx = PlayerX + 1;
+        float lowery = PlayerY - 1;
+        float uppery = PlayerY + 1;
+        
+        
+
+        while((x > lowerx && x < upperx) || (y > lowery && y < uppery) )
         {
             Randomx = new System.Random();
             x = Randomx.Next(-8, 8);
             Randomy = new System.Random();
             y = Randomy.Next(-4, 4);
+            Debug.Log(PlayerX + "py: " + PlayerY + " x: " + x + " y: " + y);
         }
 
         Vector3 position = new Vector3(x, y, -1f);

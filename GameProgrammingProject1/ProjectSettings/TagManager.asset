@@ -15,6 +15,7 @@ TagManager:
   - Pointer
   - Pirate
   - Swarm
+  - maxText
   layers:
   - Default
   - TransparentFX
