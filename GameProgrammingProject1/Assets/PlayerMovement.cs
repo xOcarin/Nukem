@@ -9,8 +9,11 @@ public class PlayerMovement : MonoBehaviour
     bool downPressed = false;
     bool leftPressed = false;
     bool rightPressed = false;
-    
-    
+
+    // Player Position
+    public float xPos;
+    public float yPos;
+
     Rigidbody2D rb;
     public float moveForce = 1f;
     Vector3 originalScale;
@@ -22,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isRunning;
     private bool isSleeping;
-    
+
+    public GameObject Player;
 
     void Start()
     {
@@ -34,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        xPos = Player.transform.position.x;     // grabs player position for spawning check
+        yPos = Player.transform.position.y;     // grabs player position for spawning check
+        Debug.Log(xPos + " " + yPos);
         pirateCooldown = handler.pirateBool; //assigning bool from PlayerPointHandler every frame.
         if (pirateCooldown == false) 
         {
