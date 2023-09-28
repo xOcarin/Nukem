@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class PlayerPointHandler : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class PlayerPointHandler : MonoBehaviour
     public bool startSwarm = false;
     public bool swarmBool = false;
     
-    
     //Text Stuff
     [SerializeField] 
     public TextMeshProUGUI kpText; 
@@ -27,7 +27,6 @@ public class PlayerPointHandler : MonoBehaviour
     
     //Obtaining Prefab Variables
     public TokenSpawnScript spawner;
-    
     
     //animation stuff
     private Animator anim;
@@ -43,8 +42,13 @@ public class PlayerPointHandler : MonoBehaviour
     
     void Update()
     {
-        kpText.text = kpCounter.ToString();
+        kpText.text = Math.Floor(kpCounter).ToString();
         bpText.text = bpCounter.ToString();
+
+        if (kpCounter <= 5)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
@@ -66,7 +70,6 @@ public class PlayerPointHandler : MonoBehaviour
             Destroy(collision.gameObject);
             bpCounter++;
         }
-        
         
         //PROFESSOR COLLISION
         // removed resetting bpCounter if player doesn't have enoyght points because I'm not sure if it's intended ~Evan
@@ -119,7 +122,6 @@ public class PlayerPointHandler : MonoBehaviour
             }
         }
 
-
         void OleKnowledgeBomb()
         {
             GameObject[] objectsWithPointerTag = GameObject.FindGameObjectsWithTag("Pointer");
@@ -146,41 +148,41 @@ public class PlayerPointHandler : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if the collision involves a trigger collider
-            // Check if the collided object has a specific tag (replace "YourTag" with the actual tag)
-            if (collision.gameObject.CompareTag("Pointer"))
+        // Check if the collided object has a specific tag (replace "YourTag" with the actual tag)
+        if (collision.gameObject.CompareTag("Pointer"))
+        {
+            if (britishImmunity == false)
             {
-                if (britishImmunity == false)
+                Debug.Log("pointer hit");
+                if ((kpCounter / 2) > 10)
                 {
-                    Debug.Log("pointer hit");
-                    if ((kpCounter / 2) > 10)
-                    {
-                        kpCounter = kpCounter / 2;
-                    }
-                    else
-                    {
-                        kpCounter = kpCounter - 10;
-                    }
-                    Destroy(collision.gameObject);   
+                    kpCounter = kpCounter / 2;
                 }
+                else
+                {
+                    kpCounter = kpCounter - 10;
+                }
+                Destroy(collision.gameObject);   
             }
-            if (collision.gameObject.CompareTag("Pirate"))
+        }
+        if (collision.gameObject.CompareTag("Pirate"))
+        {
+            if (britishImmunity == false)
             {
-                if (britishImmunity == false)
-                {
-                    Destroy(collision.gameObject);
-                    StartCoroutine(SetPirateTimeOut());
-                }
+                Destroy(collision.gameObject);
+                StartCoroutine(SetPirateTimeOut());
             }
-            if (collision.gameObject.CompareTag("Swarm"))
+        }
+        if (collision.gameObject.CompareTag("Swarm"))
+        {
+            if (britishImmunity == false)
             {
-                if (britishImmunity == false)
-                {
-                    swarmBool = true;
-                    StartCoroutine(SwarmAttack());
-                    Destroy(collision.gameObject);
-                    swarmBool = true;
-                }
+                swarmBool = true;
+                StartCoroutine(SwarmAttack());
+                Destroy(collision.gameObject);
+                swarmBool = true;
             }
+        }
     }
     
     //swarm attack code
@@ -210,10 +212,7 @@ public class PlayerPointHandler : MonoBehaviour
         anim.SetBool("isHitByPirate", true);
         yield return new WaitForSeconds(1f); //amount of time in seconds
         anim.SetBool("isHitByPirate", false);
-        
     }
-    
-    
     
     //Swarm Timer Code;
     private IEnumerator SetSwarmTimeOut()
@@ -237,7 +236,4 @@ public class PlayerPointHandler : MonoBehaviour
         
         britishImmunity = false; 
     }
-    
 }
-
-
