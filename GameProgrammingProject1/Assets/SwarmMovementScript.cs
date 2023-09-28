@@ -6,7 +6,7 @@ using UnityEngine;
 public class SwarmMovementScript : MonoBehaviour
 {
     public float radius = 2.0f; // Radius of the circular path
-    public float angularSpeed = 90.0f; // Angular speed in degrees per second
+    public float angularSpeed = 45.0f; // Angular speed in degrees per second
 
     private float angle = 0.0f;
 

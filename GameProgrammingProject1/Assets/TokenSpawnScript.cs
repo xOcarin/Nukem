@@ -75,6 +75,9 @@ public class TokenSpawnScript : MonoBehaviour
     
     
     
+    
+    
+    
    
 
     // Start is called before the first frame update
@@ -115,7 +118,8 @@ public class TokenSpawnScript : MonoBehaviour
             {
                 randomToken = tokensToSpawn[2];
                 StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
-
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
+                StartCoroutine(SpawnSomething(randomToken.spawnTime, randomToken.gameObject1, randomToken.gameObject2));
             }
             else if (Choice > 15 && Choice < 35)
             {
@@ -232,9 +236,9 @@ public class TokenSpawnScript : MonoBehaviour
     {
         
             System.Random Randomx = new System.Random();
-            int x = Randomx.Next(-8, 8);
+            int x = Randomx.Next(-9, 9);
             System.Random Randomy = new System.Random();
-            int y = Randomy.Next(-4, 4);
+            int y = Randomy.Next(-5, 5);
             
             Vector3 position = new Vector3(x, y, -1f);
             name = Instantiate(prefab, position, Quaternion.identity);
@@ -246,7 +250,6 @@ public class TokenSpawnScript : MonoBehaviour
     IEnumerator SpawnPointer(float waitTime, GameObject prefab, GameObject name)
     {
         int x = (UnityEngine.Random.Range(0, 2) == 0) ? -8 : 8;
-
         System.Random Randomy = new System.Random();
         int y = Randomy.Next(-4, 4);
             
